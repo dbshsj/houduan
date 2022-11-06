@@ -5,7 +5,7 @@ import express from "express"
 import { createUser } from "../posts.js"
 
 //导入用户函数模块
-import {regist} from "./userFun.js"
+import {regist, login} from "./userFun.js"
 
 //创建路由实例对象
 const userRouter = express.Router()
@@ -15,14 +15,10 @@ userRouter.get('/:id',(req,res)=>{
 })
 
 
-userRouter.post('/login',(req,res)=>{
-    
-})
+userRouter.post('/login',login)
 
 
-userRouter.post('/regist',(req,res)=>{
-    regist(req,res)
-})
+userRouter.post('/regist',regist)
 
 userRouter.post('/find',(req,res)=>{
     
