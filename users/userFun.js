@@ -20,18 +20,17 @@ export  const regist = async (req,res) => {
     }
     
     const registInfo1 = {account:userInfo.phone}
-    const s1 = accountVerification(registInfo1).then((value)=>{
-        if(value !== null) return res.send({code:"500",message:"电话已注册!",data:{}});
-        const registInfo2 = {account:userInfo.email}
-        const s2 = accountVerification(registInfo2).then((value)=>{
-        if(value !== null) {
-            return res.send({code:"500",message:"邮箱已注册!",data:{}})
-        }
-        //注册成功
-        return createUser(userInfo).then((value)=>{
-            res.send(value)
-        })
-    })
+    const s1 =await accountVerification(registInfo1)
+    if(s1) return res.send({code:"500",message:"电话已注册!",data:{}});
+    const registInfo2 = {account:userInfo.email}
+    const s2 =await accountVerification(registInfo2)
+    if(s2) return res.send({code:"500",message:"邮箱已注册!",data:{}});
+    const registInfo3 = {account:userInfo.name}
+    const s3 =await accountVerification(registInfo3)
+    if(s3) return res.send({code:"500",message:"昵称已注册!",data:{}});
+    //注册成功
+    return createUser(userInfo).then((value)=>{
+        res.send(value)
     })
 }
 

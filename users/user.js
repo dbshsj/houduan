@@ -10,7 +10,7 @@ import {regist, login} from "./userFun.js"
 //创建路由实例对象
 const userRouter = express.Router()
 
-userRouter.get('/:id',(req,res)=>{
+userRouter.get('/user/:id',(req,res)=>{
     
 })
 
@@ -24,7 +24,7 @@ userRouter.post('/find',(req,res)=>{
     
 })
 
-userRouter.put('/:id',(req,res)=>{
+userRouter.put('/user/:id',(req,res)=>{
     
 })
 //共享路由
