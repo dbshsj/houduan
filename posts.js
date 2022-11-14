@@ -26,22 +26,86 @@ export async function createUser(userData){
 //通过phone或email查找数据库中数据
 export async function accountVerification(loginInfo){
      try {
-          const s1 = db.user.findFirst({ 
+          let s1 =await db.user.findFirst({ 
                where:{
                     OR:[
                          {phone:loginInfo.account},
                          {email:loginInfo.account},
-                         {name:loginInfo.account}
+                         {name:loginInfo.account},
+                         {id:loginInfo.account}
                     ]
                }
           })
           return s1
      } catch (error) {
-          console.log(error);
+          console.log(error)
      }
 }
 
+//更新user表中数据，找回密码
+export async function userPasswordUpdata(findInfo){
+    try {
+     const s1 = await db.user.update({
+          where:{
+               id:findInfo.id 
+               },
+          data:{password:findInfo.new_password}
+         })
+     console.log(s1)
+     return s1
+    } catch (error) {
+          console.log(error);
+    }
+}
+
+//修改用户信息
+export async function alterUserInfo(userInfo){
+     try {
+      const s1 = await db.user.update({
+           where:{
+                id:userInfo.account 
+                },
+           data:{password:userInfo.new_password,name:userInfo.name}
+          })
+     } catch (error) {
+           console.log(error);
+     }
+ } 
 //删除user表中所有数据
 export async function deleteUser(){
      const s1 =await db.user.deleteMany({})
 }
+
+//发布帖子
+export async function createPublishes(publishInfo){
+     try {
+          const s1 = await db.publish.create({
+               data:{
+                    title:publishInfo.title,
+                    content:publishInfo.content
+               }
+          })
+          return s1
+     } catch (error) {
+          
+     }
+}
+
+//存储照片信息
+export async function createImages(imageInfo){
+     try {
+          const s1 = db.image.create({
+               data:{
+                    name:imageId.name,
+                    url:imageId.url,
+                    user_id:imageId.user_id,
+                    publish_id:imageId.publish_id,
+                    base_id:imageId.base_id,
+                    chat_id:imageId.chat_id
+               }
+          })
+     } catch (error) {
+          console.log(error);
+     }
+}
+
